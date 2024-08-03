@@ -1,0 +1,84 @@
+body {
+    font-family: 'Times New Roman', sans-serif;
+    background-size: auto;
+    background: rgb(228, 238, 244);
+}
+
+h1{
+    text-align: center;
+}
+form {
+    width: 50%;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0.1, 0.1, 0.1, 0.1);
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="email"], input[type="date"], select, textarea {
+    width: 98%;
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+input[type="checkbox"] {
+    margin-bottom: 20px;
+}
+
+
+button[type="reset"] {
+    margin-right: 45px;
+    width: 20%;
+    height: 40px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button[type="reset"]:hover{
+    background: #fc3232;
+}
+button[type="submit"] {
+    margin-left: 50%;
+    width: 20%;
+    height: 40px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover { background-color: #1be722;
+   
+}
+
+table {
+    align-items: center;
+    width: 93%;
+    margin-top: 40px;
+    border-collapse: collapse;
+    
+
+}
+
+th, td {
+    border: 1px solid #cb0b0b;
+    padding: 10px;
+   text-align: left;
+   height: 20px ;
+}
+
+th {
+    background-color: #f0f0f0;
+}

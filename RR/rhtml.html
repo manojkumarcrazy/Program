@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <link rel="stylesheet" href="rcss.css">
+         <!-- body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        } -->
+   
+</head>
+<body>
+
+<h1>Student Registration Form</h1>
+
+<form id="registrationForm">
+
+    <label for="name">Name:</label>
+       <input type="text" id="name" name="name">
+
+    <label for="email">Email:</label>
+      <input type="text" id="email" name="email">
+
+    <label for="mobile">Mobile:</label>
+     <input type="text" id="mobile" name="mobile"><br>
+
+     <label for="gender">Gender:</label>
+     <select id="gender" name="gender">
+         <option value="">Select</option>
+    <option value="male">Male</option>
+ <option value="female">Female</option>
+ <option value="other">Other</option><br><br><br>
+
+    <label for="dob">DOB:</label>
+    <input type="date" id="dob" name="dob"> <br><br>
+
+    <label for="languages">Languages Known:</label>
+    <input type="checkbox" id="english" name="languages" value="English"> English
+    <input type="checkbox" id="Tamil" name="languages" value="Tamil"> Tamil
+    <input type="checkbox" id="other" name="languages" value="Other"> Other<br> <br>
+
+
+
+    
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country">
+
+    <label for="state">State:</label>
+    <input type="text" id="state" name="state">
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city">
+
+    <label for="address">Address:</label>
+    <textarea id="address" name="address"></textarea>
+
+    <button type="reset">Reset</button>
+
+    <button type="submit">Submit</button>
+</form>
+
+<table>
+    <thead>
+  <tr>
+            <th>Name</th>
+         <th>Email</th>
+        <th>Mobile</th>            <th>Gender</th>
+            <th>DOB</th>
+            <th>Languages Known</th>
+        <th>Country</th>
+            <th>State</th>
+         <th>City</th>
+            <th>Address</th>
+   </tr>
+    </thead>
+    <tbody id="studentTableBody">
+    </tbody>
+</table>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const mobile = document.getElementById('mobile').value;
+        const gender = document.querySelector('input[name="gender"]:checked');
+        const dob = document.getElementById('dob').value;
+        const languages = document.querySelectorAll('input[name="languages"]:checked');
+        const country = document.getElementById('country').value;
+        const state = document.getElementById('state').value;
+        const city = document.getElementById('city').value;
+        const address = document.getElementById('address').value;
+        
+        if (!name || !email || !mobile || !gender || !dob || languages.length === 0 || !country || !state || !city || !address) {
+            alert('Please fill out all fields.');
+            return;
+        }
+        
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+        
+        const mobilePattern = /^[6-9]\d{9}$/;
+        if (!mobilePattern.test(mobile)) {
+            alert('Please enter a valid Indian mobile number.');
+            return;
+        }
+        let selectedLanguages = [];
+        languages.forEach(lang => selectedLanguages.push(lang.value));
+        
+        
+        const tableBody = document.getElementById('studentTableBody');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${name}</td>
+            <td>${email}</td>
+            <td>${mobile}</td>
+            <td>${gender.value}</td>
+            <td>${dob}</td>
+            <td>${selectedLanguages.join(', ')}</td>
+            <td>${country}</td>
+            <td>${state}</td>
+            <td>${city}</td>
+            <td>${address}</td>
+        `;
+        tableBody.appendChild(newRow);
+
+        
+        document.getElementById('registrationForm').reset();
+    });
+</script>
+
+</body>
+</html>
