@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+
+<h1 style="color: blueviolet;">Student Registration Form</h1>
+
+<form id="registrationForm">
+    <!-- Form Fields -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required placeholder="Enter the Name "> 
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required placeholder="Enter the Your Email Id  ">
+  
+        <label for="countryCode" id="CounrtyCode">Country Code:</label>
+        <input type="text" id="countryCode" name="countryCode" placeholder="Enter countryCode" pattern="\+[0-9]{1,4}" required>
+        <br><br>
+    
+     <label for="mobile">Mobile:</label>
+    <input type="text" id="mobile" name="mobile" required placeholder="Enter the Mobile Number ">
+
+    <label for="dob">DOB:</label>
+    <input type="date" id="dob" name="dob" required><br><br>
+
+    <label for="languages">Languages Known:</label>
+    <input type="checkbox" id="english" name="languages" value="English"> English
+    <input type="checkbox" id="Tamil" name="languages" value="Tamil"> Tamil
+    <input type="checkbox" id="other" name="languages" value="Other"> Other<br> <br>
+
+    <label for="gender">Gender:</label>
+    <div id="gender">
+        <select id="gender" name="gender">
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+    </div><br><br>
+<div id="country-code">
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" required>
+</div>
+
+    <label for="state">State:</label>
+    <input type="text" id="state" name="state" required>
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" required>
+
+    <label for="address">Address:</label>
+    <textarea id="address" name="address" required></textarea>
+    <button type="submit">Submit</button>
+     <button type="reset">Reset</button> 
+ 
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>countryCode</th>
+            <th>Mobile</th>
+            <th>Gender</th>
+            <th>DOB</th>
+            <th>Languages Known</th>
+            <th>Country</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody id="studentTableBody">
+    </tbody>
+</table>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const CountryCode = document.getElementById('countryCode').value;
+        const mobile = document.getElementById('mobile').value;
+        const gender = document.getElementById('gender').value;
+        const dob = document.getElementById('dob').value;
+        const languages = document.querySelectorAll('input[name="languages"]:checked');
+        const country = document.getElementById('country').value;
+        const state = document.getElementById('state').value;
+        const city = document.getElementById('city').value;
+        const address = document.getElementById('address').value;
+
+        let selectedLanguages = [];
+        languages.forEach(lang => selectedLanguages.push(lang.value));
+
+        const tableBody = document.getElementById('studentTableBody');
+        const newRow = document.createElement('tr');
+
+        newRow.innerHTML = `
+            <td>
+                <button class="updateBtn">Update</button>
+                <button class="deleteBtn">Delete</button>
+            </td>
+            <td>${name}</td>
+            <td>${email}</td>
+            td>${CountryCode}</td>
+            <td>${mobile}</td>
+            <td>${gender}</td>
+            <td>${dob}</td>
+            <td>${selectedLanguages.join(', ')}</td>
+            <td>${country}</td>
+            <td>${state}</td>
+            <td>${city}</td>
+            <td>${address}</td>
+        `;
+
+        // Append the new row to the table
+        tableBody.appendChild(newRow);
+
+        // Add event listeners for the Update and Delete buttons
+        newRow.querySelector('.updateBtn').addEventListener('click', function() {
+            updateStudent(newRow);
+        });
+        
+        newRow.querySelector('.deleteBtn').addEventListener('click', function() {
+            deleteStudent(newRow);
+        });
+
+        // Reset the form
+        document.getElementById('registrationForm').reset();
+    });
+
+    function updateStudent(row) {
+        const cells = row.getElementsByTagName('td');
+        const name = prompt("Update Name:", cells[1].textContent);
+        const email = prompt("Update Email:", cells[2].textContent);
+        const mobile = prompt("Update Mobile:", cells[3].textContent);
+        const gender = prompt("Update Gender:", cells[4].textContent);
+        const dob = prompt("Update DOB:", cells[5].textContent);
+        const languages = prompt("Update Languages:", cells[6].textContent);
+        const country = prompt("Update Country:", cells[7].textContent);
+        const state = prompt("Update State:", cells[8].textContent);
+        const city = prompt("Update City:", cells[9].textContent);
+        const address = prompt("Update Address:", cells[10].textContent);
+
+        cells[1].textContent = name;
+        cells[2].textContent = email;
+        cells[3].textContent = CountryCode;
+        cells[3].textContent = mobile;
+        cells[4].textContent = gender;
+        cells[5].textContent = dob;
+        cells[6].textContent = languages;
+        cells[7].textContent = country;
+        cells[8].textContent = state;
+        cells[9].textContent = city;
+        cells[10].textContent = address;
+    }
+
+    function deleteStudent(row) {
+        row.remove();
+    }
+    document.getElementById('CounrtyCode').addEventListener('submit', function(event) {
+        const countryCode = document.getElementById('countryCode').value;
+        const mobile = document.getElementById('mobile').value;
+
+        // Check if mobile number has 10 digits and starts with 6-9 (for Indian numbers)
+        const mobilePattern = /^[6-9]\d{9}$/;
+        if (!mobilePattern.test(mobile)) {
+            alert('Please enter a valid 10-digit mobile number.');
+            event.preventDefault();  // Prevent form submission
+            return;
+        }
+
+        // Optional: Check for valid country code (e.g., +91 for India)
+        const countryCodePattern = /^\+[0-9]{1,4}$/;
+        if (!countryCodePattern.test(countryCode)) {
+            alert('Please enter a valid country code.');
+            event.preventDefault();  // Prevent form submission
+        }
+    });
+</script>
+
+</body>
+</html>
